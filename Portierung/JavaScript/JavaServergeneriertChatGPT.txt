@@ -1,0 +1,99 @@
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class SimpleServer {
+    private static String queryAntwort = "";
+
+    public static void main(String[] args) throws IOException {
+        int port = 3210;
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/", new MyHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+        System.out.println("Server läuft auf Port " + port);
+    }
+
+    static class MyHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String method = t.getRequestMethod();
+            URI uri = t.getRequestURI();
+            String path = "." + uri.getPath();
+            if (path.equals("./")) {
+                path = "./index.html"; // Standardseite
+            }
+
+            if (method.equalsIgnoreCase("GET")) {
+                Map<String, String> queryParams = queryToMap(uri.getQuery());
+                queryAntwort = queryParams.toString();
+                System.out.println("GET-Anfrage empfangen");
+                System.out.println("Daten: " + queryAntwort);
+                handleFileResponse(t, path);
+            } else if (method.equalsIgnoreCase("POST")) {
+                System.out.println("POST-Anfrage empfangen");
+                String body = new String(t.getRequestBody().readAllBytes());
+                queryAntwort = body;
+                System.out.println("Daten: " + queryAntwort);
+                String response = "{\"message\": \"POST-Erfolg\"}";
+                t.sendResponseHeaders(200, response.length());
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+        }
+
+        private void handleFileResponse(HttpExchange t, String filePath) throws IOException {
+            if (Files.exists(Paths.get(filePath))) {
+                String contentType = getContentType(filePath);
+                byte[] response;
+                if (queryAntwort.length() < 5) {
+                    response = Files.readAllBytes(Paths.get(filePath));
+                } else {
+                    response = queryAntwort.getBytes();
+                }
+                t.getResponseHeaders().add("Content-Type", contentType);
+                t.sendResponseHeaders(200, response.length);
+                OutputStream os = t.getResponseBody();
+                os.write(response);
+                os.close();
+            } else {
+                String response = "Datei nicht gefunden";
+                t.sendResponseHeaders(404, response.length());
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+        }
+
+        private String getContentType(String filePath) {
+            if (filePath.endsWith(".html")) {
+                return "text/html";
+            } else if (filePath.endsWith(".txt")) {
+                return "text/plain";
+            } else {
+                return "text/plain";
+            }
+        }
+
+        private Map<String, String> queryToMap(String query) {
+            if (query == null) {
+                return new HashMap<>();
+            }
+            return Stream.of(query.split("&"))
+                    .map(param -> param.split("="))
+                    .collect(Collectors.toMap(p -> p[0], p -> p.length > 1 ? p[1] : ""));
+        }
+    }
+}

@@ -1,0 +1,62 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public class Model {
+    private static final String GUESTBOOK_FILE = "gaestebuch.txt";
+
+    public int speichern(String text) {
+        StringBuilder content = new StringBuilder();
+        try (InputStream in = new FileInputStream(GUESTBOOK_FILE)) {
+            int character;
+            while ((character = in.read()) != -1) {
+                content.append((char) character);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Gästebuch noch nicht vorhanden. Wird erstellt.");
+            createNewGuestbookFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1; // Fehler beim Lesen
+        }
+
+        content.append(text).append("\r\n*******\r\n");
+
+        try (OutputStream out = new FileOutputStream(GUESTBOOK_FILE)) {
+            out.write(content.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -2; // Fehler beim Schreiben
+        }
+
+        return 0; // Erfolgreich gespeichert
+    }
+
+    public String lesen() {
+        StringBuilder content = new StringBuilder();
+        try (InputStream in = new FileInputStream(GUESTBOOK_FILE)) {
+            int character;
+            while ((character = in.read()) != -1) {
+                content.append((char) character);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Gästebuch noch nicht vorhanden.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Fehler beim Lesen
+        }
+
+        return content.toString();
+    }
+
+    private void createNewGuestbookFile() {
+        try (OutputStream out = new FileOutputStream(GUESTBOOK_FILE)) {
+            // Leere Datei erstellen
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
