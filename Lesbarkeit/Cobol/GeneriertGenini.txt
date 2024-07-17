@@ -1,0 +1,32 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. X.
+
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT INPUT-FILE ASSIGN TO "input.txt"
+               ORGANIZATION IS LINE SEQUENTIAL.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD  INPUT-FILE.
+       01  INPUT-RECORD.
+           05 RECORD-DATA PIC X(80).
+
+       WORKING-STORAGE SECTION.
+       01  WORKING-RECORD PIC X(80).
+       01  END-OF-FILE-FLAG PIC X VALUE 'N'.
+
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+           OPEN INPUT INPUT-FILE
+           PERFORM UNTIL END-OF-FILE-FLAG = 'Y'
+               READ INPUT-FILE INTO WORKING-RECORD
+                   AT END
+                       MOVE 'Y' TO END-OF-FILE-FLAG
+                   NOT AT END
+                       DISPLAY WORKING-RECORD
+               END-READ
+           END-PERFORM
+           CLOSE INPUT-FILE
+           STOP RUN.

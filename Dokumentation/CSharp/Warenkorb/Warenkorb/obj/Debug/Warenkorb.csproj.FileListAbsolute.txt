@@ -1,0 +1,10 @@
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\bin\Debug\Warenkorb.exe.config
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\bin\Debug\Warenkorb.exe
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\bin\Debug\Warenkorb.pdb
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.csproj.AssemblyReference.cache
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.Form1.resources
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.Properties.Resources.resources
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.csproj.GenerateResource.cache
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.csproj.CoreCompileInputs.cache
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.exe
+D:\ralph\Documents\Videorekording\v2b\Juli2024\KICodeVerbesserungen\Basiccodes\Csharp\Warenkorb\Warenkorb\obj\Debug\Warenkorb.pdb

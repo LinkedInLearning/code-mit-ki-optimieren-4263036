@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"Alle Klassen und Schnittstellen","u":"allclasses-index.html"},{"p":"gaestebuch","l":"Controler"},{"p":"gaestebuch","l":"Model"},{"p":"gaestebuch","l":"View"}];updateSearchResults();
